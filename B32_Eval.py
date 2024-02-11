@@ -204,7 +204,7 @@ import sys
 import os
 from huggingface_hub import hf_hub_download
 from einops import rearrange
-sys.path.insert(0, '/content/drive/MyDrive/SemNov_AML_DAAI_23-24/OpenShape')
+
 
 
 class PreNorm(nn.Module):
@@ -548,23 +548,13 @@ def module(state_dict: dict, name):
     return {'.'.join(k.split('.')[1:]): v for k, v in state_dict.items() if k.startswith(name + '.')}
 
 
-def G14(s):
-    model = Projected(
-        PointPatchTransformer(512, 12, 8, 512*3, 256, 384, 0.2, 64, 6),
-        nn.Linear(512, 1280)
-    )
-    model_path = os.path.join('/content/drive/My Drive/SemNov_AML_DAAI_23-24/Pointbert_G14','model.pt')
-    s = torch.load(model_path)
-    dic = model.load_state_dict(module(s['state_dict'], 'module'))
-    print(dic)
-    return model
 
 def L14(s):
     model = Projected(
         PointPatchTransformer(512, 12, 8, 1024, 128, 64, 0.4, 256, 6),
         nn.Linear(512, 768)
     )
-    model_path = os.path.join('/content/drive/My Drive/SemNov_AML_DAAI_23-24/Pointbert_L14','model.pt')
+    model_path = os.path.join('/content/3DSemanticNoveltyDetection/Pointbert_L14','model.pt')
     s = torch.load(model_path)
     dic = model.load_state_dict(module(s, 'pc_encoder'))
     print(dic)
@@ -573,38 +563,22 @@ def L14(s):
 
 def B32(s):
     model = PointPatchTransformer(512, 12, 8, 1024, 128, 64, 0.4, 256, 6)
-    model_path = os.path.join('/content/drive/My Drive/SemNov_AML_DAAI_23-24/Pointbert_vitB32','model.pt')
+    model_path = os.path.join('/content/3DSemanticNoveltyDetection/Pointbert_vitB32','model.pt')
     s = torch.load(model_path)
     dic = model.load_state_dict(module(s, 'pc_encoder'))
     print(dic)
     return model
 
-    model_list = {
+model_list = {
         "openshape-pointbert-vitb32-rgb": B32,
         "openshape-pointbert-vitl14-rgb": L14,
-        "openshape-pointbert-vitg14-rgb": G14,
+    
     }
 
-# def B32(s):
-#     model = Projected(
-#         PointPatchTransformer(512, 12, 8, 1024, 128, 64, 0.4, 256, 6),
-#         None
-#     )
-#     model_path = os.path.join('/content/drive/My Drive/SemNov_AML_DAAI_23-24/Pointbert_vitB32','model.pt')
-#     s = torch.load(model_path)
-#     dic = model.load_state_dict(module(s, 'pc_encoder'))
-#     print(dic)
-#     return model
-
-# model_list = {
-#     "openshape-pointbert-vitb32-rgb": B32,
-#     "openshape-pointbert-vitl14-rgb": L14,
-#     "openshape-pointbert-vitg14-rgb": G14,
-# }
 
 
 def load_pc_encoder(name):
-    model_path = os.path.join("/content/drive/My Drive/OpenShape/SemNov_AML_DAAI_23-24/", name, 'model.pt')
+    model_path = os.path.join("/content/3DSemanticNoveltyDetection", name, 'model.pt')
     s = torch.load(model_path, map_location='cpu')
     model = model_list[name](s).eval()
     if torch.cuda.is_available():
@@ -746,7 +720,7 @@ def eval_ood_md2sonn(opt, config, s):
     n_classes = len(set(classes_dict.values()))
     
     # Build Openshape Model
-    model_path = os.path.join('/content/drive/My Drive/SemNov_AML_DAAI_23-24/Pointbert_vitB32','model.pt')
+    model_path = os.path.join('/content/3DSemanticNoveltyDetection/Pointbert_vitB32','model.pt')
     s = torch.load(model_path)
     model = B32(s)
     state_dict = module(s, 'pc_encoder')
