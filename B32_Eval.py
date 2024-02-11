@@ -769,10 +769,10 @@ def eval_OOD_with_feats(model, train_loader, src_loader, tar1_loader, tar2_loade
     print("Computing OOD metrics with distance from train features...")
 
     # extract penultimate features, compute distances
-    train_feats, train_labels,_ = get_penultimate_feats(model, train_loader,None)
-    src_feats, src_labels ,_= get_penultimate_feats(model, src_loader,None)
-    tar1_feats, tar1_labels,_ = get_penultimate_feats(model, tar1_loader,None)
-    tar2_feats, tar2_labels,_ = get_penultimate_feats(model, tar2_loader,None)
+    train_feats, train_labels = get_penultimate_feats(model, train_loader)
+    src_feats, src_labels = get_penultimate_feats(model, src_loader)
+    tar1_feats, tar1_labels = get_penultimate_feats(model, tar1_loader)
+    tar2_feats, tar2_labels = get_penultimate_feats(model, tar2_loader)
     train_labels = train_labels.cpu().numpy()
 
     labels_set = set(train_labels)
@@ -816,7 +816,7 @@ def eval_OOD_with_feats(model, train_loader, src_loader, tar1_loader, tar2_loade
     tar2_dist = tar2_dist.squeeze().cpu()
     tar2_scores = 1 / tar2_dist
 
-    eval_ood_sncore(method=0,
+    eval_ood_sncore(
         scores_list=[src_scores, tar1_scores, tar2_scores],
         preds_list=[src_pred, None, None],  # [src_pred, None, None],
         labels_list=[src_labels, None, None],  # [src_labels, None, None],
@@ -841,7 +841,7 @@ def eval_OOD_with_feats(model, train_loader, src_loader, tar1_loader, tar2_loade
     tar2_dist = tar2_dist.squeeze().cpu()
     tar2_scores = 1 / tar2_dist
 
-    eval_ood_sncore(method = 0,
+    eval_ood_sncore(
         scores_list=[src_scores, tar1_scores, tar2_scores],
         preds_list=[src_pred, None, None],
         labels_list=[src_labels, None, None],
