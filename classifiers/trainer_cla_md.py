@@ -674,13 +674,13 @@ def eval_ood_md2sonn(opt, config):
     }
 
     # Save the outputs to a JSON file
-    output_file_path = '/content/drive/MyDrive/SemNov_AML_DAAI_23-24/outputs/outputs.json'
+    output_file_path = '/content/3DSemanticNoveltyDetection/outputs/outputs.json'
     with open(output_file_path, 'w') as file:
         json.dump(output_data, file)
     # Your data in txt format
     your_data = torch.tensor(tar1_spec_points)
     # Specify the path to save the text file
-    text_file_path = '/content/drive/MyDrive/SemNov_AML_DAAI_23-24/outputs/your_data.txt'
+    text_file_path = '/content/3DSemanticNoveltyDetection/outputs/your_data.txt'
 
     # Writing to a text file
     with open(text_file_path, 'w') as text_file:
@@ -808,7 +808,7 @@ def eval_OOD_with_feats(model, train_loader, id_val_loader, src_loader, tar1_loa
         
             }
     # Save the outputs to a JSON file
-    output_file_path01 = '/content/drive/MyDrive/SemNov_AML_DAAI_23-24/outputs/outputs01.json'
+    output_file_path01 = '/content/3DSemanticNoveltyDetection/outputs/outputs01.json'
     with open(output_file_path01, 'w') as file:
         json.dump(output_data01, file)
 
@@ -816,7 +816,7 @@ def eval_OOD_with_feats(model, train_loader, id_val_loader, src_loader, tar1_loa
     your_data01 = torch.tensor(tar1_train_points)
     your_data02 = torch.tensor(tar1_points)
     # Specify the path to save the text file
-    text_file_path01 = '/content/drive/MyDrive/SemNov_AML_DAAI_23-24/outputs/your_data01.txt'
+    text_file_path01 = '/content/3DSemanticNoveltyDetection/outputs/your_data01.txt'
 
     # Writing to a text file
     with open(text_file_path01, 'w') as text_file:
@@ -824,7 +824,7 @@ def eval_OOD_with_feats(model, train_loader, id_val_loader, src_loader, tar1_loa
            for row in tensor:
                 text_file.write(" ".join(map(str, row.cpu().numpy())) + "\n")
 
-    text_file_path02 = '/content/drive/MyDrive/SemNov_AML_DAAI_23-24/outputs/your_data02.txt'
+    text_file_path02 = '/content/3DSemanticNoveltyDetection/outputs/your_data02.txt'
 
     # Writing to a text file
     with open(text_file_path02, 'w') as text_file:
