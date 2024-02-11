@@ -1,0 +1,8 @@
+timm==0.5.4
+wandb
+tqdm
+h5py==3.6.0
+protobuf==3.20.1
+lmdb==1.2.1
+msgpack-numpy==0.4.7.1
+scikit-learn
