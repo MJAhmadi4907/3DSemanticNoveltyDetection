@@ -8,6 +8,14 @@
 This code allows to replicate all the experiments and reproduce all the results that we included in
 our paper.
 
+## Preparing the file to run
+First you need to open the file named "3D Semantic Novelty Detection", to run this directly in Google colab environment you can:
+1. Find the .ipynb file on GitHub: Go to the GitHub repository containing the .ipynb file you want to open.
+2. Click on the .ipynb file: Click on the .ipynb file you want to open. This will display the contents of the notebook in GitHub.
+3. Replace github.com with colab.research.google.com/github in the URL: In the URL of the file on GitHub, replace github.com with colab.research.google.com/github
+4. Go to the modified URL: Once you've replaced the URL, press Enter or Go. This will open the notebook directly in Google Colab.
+5. Authorize Google Colab to access your GitHub account (if prompted): Google Colab might prompt you to authorize access to your GitHub account. Follow the prompts to grant access if necessary.
+6. Wait for the notebook to load: Once authorized, Google Colab will load the notebook from GitHub.
 
 ### Data
 Use the prepared script to download all datasets. 
@@ -32,14 +40,12 @@ The absolute path to the datasets root must be passed as **--data_root** argumen
 Each experiment requires to choose a backbone (through the config file), a loss function and a source set. For example: 
 
 ```bash
-# multiple gpus
 python classifiers/trainer_cla.py --config cfgs/dgcnn-cla.yaml --exp_name DGCNN_CE_SR1 --src SR1 --loss CE 
 ```
 
 ### Eval 
 
 ```bash
-# multiple gpus
 python  classifiers/trainer_cla.py --config cfgs/dgcnn-cla.yaml --exp_name DGCNN_CE_SR1 --src SR1 --loss CE -mode eval --ckpt_path outputs/DGCNN_CE_SN1/models/model_last.pth
 
 ```
